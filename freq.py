@@ -6,7 +6,7 @@ class Frequency:
     def __init__(self, name, freq, mode, bandwidth) -> None:
         self.name = name
         self.freq = freq
-        self.mode = mode
+        self.mode = self.normalizeMode(mode)
         self.bandwidth = bandwidth
 
 
@@ -18,6 +18,12 @@ class Frequency:
 
     def __repr__(self) -> str:
         return self.out()
+
+    def normalizeMode(self, mode):
+        if mode in ('WFM', 'FM', 'NFM', 'AM', 'NAM', 'DV', 'USB', 'LSB', 'CW', 'RTTY', 'DIG', 'PKT', 'NCW', 'NCWR', 'CWR', 'P25', 'Auto', 'RTTYR', 'FSK', 'FSKR', 'DMR', 'DN'):
+            return mode
+        else:
+            return "FM"
 
     def calculateBandwidth(self):
         if self.bandwidth == "":
@@ -39,9 +45,9 @@ class Frequency:
         if mode is None:
             channel = None
         if mode == "N/A":
-            channel = [-1, self.name, self.freq, "off", "5.0", "", "88.5", "88.5", "023", "NN", "023", "Tone->Tone", mode, "2.5", "", "5.0W"]
+            channel = [-1, self.name, self.freq, "off", "5.0", "", "88.5", "88.5", "023", "NN", "023", "Tone->Tone", self.mode, "2.5", "", "5.0W"]
         else:
-            channel = [-1, self.name, self.freq, "", "5.0", "", "88.5", "88.5", "023", "NN", "023", "Tone->Tone", mode, "2.5", "", "5.0W"]
+            channel = [-1, self.name, self.freq, "off", "5.0", "", "88.5", "88.5", "023", "NN", "023", "Tone->Tone", mode, "2.5", "", "5.0W"]
 
         return channel
 
