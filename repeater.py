@@ -20,7 +20,7 @@ class Repeater:
         return self.out()
 
     def getChirp(self):
-        if self.mode == "FM" and self.squelch and self.squelch.replace(".", "").isdigit():
+        if (self.mode == "FM" or self.mode == "GMRS") and self.squelch and self.squelch.replace(".", "").isdigit():
             rx_channel = [-1, self.rx_freq, -1, "TSQL", "88.5", self.squelch, "023", "023", "NN", "Tone->Tone", "", "", "FM", "2.5", "5.0W", f"{self.callsign} - RX"]
             tx_channel = [-1, self.tx_freq, -1, "TSQL", "88.5", self.squelch, "023", "023", "NN", "Tone->Tone", "", "", "FM", "2.5", "5.0W", f"{self.callsign} - TX"]
             return [rx_channel, tx_channel]
